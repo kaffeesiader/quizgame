@@ -23,10 +23,12 @@ Route::pattern('pid', '[1|2]');
 Route::model('game', 'Game');
 
 
-
+/*
+ * Route to home screen
+ */
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('home');
 });
 
 Route::get('game/new', array('as' => 'game.new', 'uses' => 'GameController@newGame'));
@@ -35,6 +37,6 @@ Route::post('game/new', array('as' => 'game.start', 'uses' => 'GameController@st
 
 Route::get('game/player{pid}/{game}', 'GameController@handlePlayer');
 
-Route::post('game/player{pid}/{game}', array('as' => 'game.play', 'uses' => 'GameController@handlePlayerMove'));
+Route::post('game/player{pid}/{game}', 'GameController@handlePlayerMove');
 
 Route::get('game/{id}/result', 'GameController@showResult');

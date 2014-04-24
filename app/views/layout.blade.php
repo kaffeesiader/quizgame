@@ -15,7 +15,9 @@
 			</header>
 			
 			<nav id="nav-top">
-				
+				<ul>
+					<li><a href="/quizgame/game/new">Start new game</a></li>
+				</ul>
 			</nav>
 			
 			@unless ($errors->isEmpty())
