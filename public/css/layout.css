@@ -1,0 +1,371 @@
+/* =========================================================
+Stylesheet für Übungsseiten "Little Boxes, Teil 1"
+Stand: Ende Kap. 08 - nach der Sortierung
+Datei: layout.css
+Datum: 20. April 2009
+Autor: Peter Müller
+Aufbau: 1. Kalibrierung und Restauration
+2. Allgemeine Styles
+3. Styles für Layoutbereiche
+4. Sonstige Styles
+========================================================== */
+
+/* =======================================
+1. Kalibrierung und Restauration
+======================================= */
+* {
+	padding: 0;
+	margin: 0;
+}
+
+/* =======================================
+2. Allgemeine Styles
+======================================= */
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	background-color: lightcyan
+}
+
+html { /* erzwingt Scrollbar im Firefox */
+	height: 101%;
+}
+
+img#logo {
+	background-color: white;
+	color: black;
+}
+
+h1 {
+	font-size: 150%;
+}
+
+h2 {
+	font-size: 130%;
+}
+
+address {
+	text-align: center; /* zentrieren */
+	font-size: 1.1em;
+	font-style: normal; /* normale Schrift, nicht kursiv */
+	letter-spacing: 2px; /* Abstand zwischen den Buchstaben */
+	line-height: 1.5; /* Zeilenabstand, ohne Einheit */
+}
+
+a {
+	text-decoration: none;
+} /* Unterstreichung entfernen */
+a:link {
+	color: #d90000;
+} /* Reihenfolge der Pseudoklassen ist wichtig! */
+a:visited {
+	color: #d90000;
+}
+
+a:hover,a:focus {
+	
+}
+
+a:active {
+	color: white;
+	background-color: #d90000;
+}
+/* Abstand nach unten */
+h2,p,ul,ol {
+	margin-bottom: 1em;
+}
+
+/* Verschachtelte Listen ohne Abstand */
+ul ul {
+	margin-bottom: 0;
+}
+
+/* Abstand von links */
+li {
+	margin-left: 1em;
+}
+hr {
+	margin: 5px 0;
+}
+/* =======================================
+3. Styles für die Layoutbereiche
+======================================= */
+#wrapper {
+	color: black;
+	background-color: white;
+	width: 800px;
+	margin: 10px auto;
+}
+
+#header {
+	position: relative;
+	background-color: white;
+	color: black;
+	padding: 10px 20px 0 20px;
+}
+
+#header p {
+	position: absolute;
+	top: 20px;
+	right: 40px;
+	font-variant: small-caps;
+	font-size: 1.2em;
+	padding: 10px 20px 0 20px;
+}
+
+#header p span {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+#top_menu {
+	position: absolute;
+	top: 5px;
+	right: 0px;
+}
+
+#top_menu li {
+	list-style-type: none;
+	display: inline;
+	margin: 0;
+}
+
+#top_menu a {
+	padding: 5px 10px;
+	background: #EEEEEE;
+	color: blue;
+	font-size: 1.1em;
+}
+
+#top_menu a:hover {
+	background: white;
+}
+
+#search {
+	position: absolute;
+	bottom: 10px;
+	right: 12px;
+}
+
+#search #searchInput {
+	width: 230px;
+}
+
+#pagination {
+	margin-top: 10px;
+}
+
+#pagination a {
+	margin: 0 5px;
+}
+
+#main {
+	background-color: #eeeeee;
+	margin-bottom: 10px;
+}
+
+#navigation {
+	background-color: #eeeeee;
+	float: left;
+	width: 200px;
+	margin-bottom: 10px;
+}
+
+#navigation ul {
+	margin-bottom: 0;
+	padding: 5px 0;
+}
+
+#navigation li {
+	list-style-type: none;
+	margin: 0;
+}
+
+#navigation a {
+	display: block;
+	padding: 2px 0 2px 10px;
+}
+
+#navigation a:hover,#navigation a:focus {
+	color: black;
+	background-color: white;
+	border-bottom-color: white; /* war #d90000 */
+	padding: 2px 0 2px 15px;
+}
+
+#navigation a:active {
+	color: black;
+	background-color: white;
+	border-bottom-color: white;
+}
+
+#content {
+	min-height: 400px;
+	background-color: white;
+	padding: 0 10px;
+	margin-left: 200px;
+}
+
+#content h1 {
+	border-bottom: solid 1px lightgrey;
+	margin-bottom: 10px;
+}
+
+#content a {
+	border-bottom: 1px dotted #cc0000;
+}
+
+#content a:hover,#content a:focus {
+	border-bottom: 1px solid #d90000;
+}
+
+#content label {
+	width: 100px;
+	display: inline-block;
+}
+
+#content form div {
+	margin-bottom: 10px;
+}
+
+#page_references {
+	margin-bottom: 20px;
+}
+
+#page_references ul {
+	margin-top: 10px;
+}
+
+#footer {
+	clear: both;
+	background-color: white;
+	padding: 10px 20px, 20px, 20px;
+	border-top: 1px solid #8c8c8c;
+	margin-top: 0;
+}
+
+#home #navi01 a,#team #navi02 a,#projects #navi03 a,#miniwiki #navi04 a
+	{
+	color: black;
+	background-color: white;
+	border-bottom-color: white;
+}
+
+/* =======================================
+4. Sonstige Styles
+======================================= */
+.float-left {
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.project-item {
+	border: solid 1px #c0c0c0;
+	margin-bottom: 5px;
+	padding-left: 5px;
+}
+
+.project-name {
+	margin: 5px;
+}
+
+.project-description {
+	margin: 5px;
+}
+.title-content {
+	margin-bottom: 10px;
+}
+
+.title_meta {
+	font-style: italic;
+	font-size: 0.9em;
+}
+
+.title_options li {
+	display: inline;
+	list-style-type: none;
+	margin: 0;
+}
+
+img.title-img-right {
+	float: right;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+img.title-img-left {
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.errors,.warnings {
+	background: #FFE;
+	color: #F00;
+	margin-bottom: 10px;
+	padding: 20px;
+	border: 2px solid #F00;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.notice,.message {
+	background: #EEE;
+	margin-bottom: 10px;
+	padding: 10px;
+	border: 2px solid #00F;
+	font-size: 1.1em;
+}
+
+.clear {
+	clear: both;
+}
+
+form#editTitle {
+	background-color: #eee;
+	padding: 20px;
+	border: 1px solid #8c8c8c;
+}
+
+form#editTitle label { /* Beschriftung auf eigener Zeile */
+	display: block;
+}
+
+form#editTitle textarea {
+	width: 100%;
+	min-height: 150px;
+	border: 1px solid #8c8c8c;
+	margin-bottom: 1em;
+}
+
+form#editTitle textarea {
+	height: 7em;
+}
+
+form#editTitle input:focus,form#editTitle textarea:focus {
+	background-color: #d9d9d9;
+}
+
+form#editSettings {
+	
+}
+
+form#editSettings div {
+	margin-top: 10px;
+}
+
+form#editSettings label {
+	margin-bottom: 5px;
+	display: block;
+	font-size: 1.1em;
+}
+
+form#editSettings input {
+	margin: 5px;
+	vertical-align: middle;
+}
+
+/* =======================================
+E N D E   D E S   S T Y L E S H E E T S
+======================================= */
