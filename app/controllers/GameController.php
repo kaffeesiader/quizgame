@@ -155,7 +155,9 @@ class GameController extends BaseController {
 		
 		return Redirect::to('game/'.$game->id.'/result');
 	}
-	
+	/*
+	 * Displays the results of given game.
+	 */
 	public function showResult($game) {
 		return "Show Results!";
 	}

@@ -5,8 +5,8 @@
 	{{ Form::open(array('url' => Request::url())) }}
 
 		@foreach($questions as $qst)
-			<div class="question_item">
-				<p>{{{ $qst['text'] }}}</p>
+			<div class="question-item">
+				<p class="question-text">{{{ $qst['text'] }}}</p>
 				@foreach($qst['answers'] as $answer)
 					<li>
 						{{ Form::radio('answer'.$qst['id'], $answer) }}
@@ -16,7 +16,7 @@
 			</div>
 		@endforeach
     	
-    	<div>
+    	<div id="buttons">
     		{{ Form::submit('Submit') }}
     	</div>
     	
