@@ -39,4 +39,4 @@ Route::get('game/player{pid}/{game}', 'GameController@handlePlayer');
 
 Route::post('game/player{pid}/{game}', 'GameController@handlePlayerMove');
 
-Route::get('game/{id}/result', 'GameController@showResult');
+Route::get('game/{game}/result', 'GameController@showResult');

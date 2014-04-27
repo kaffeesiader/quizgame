@@ -159,7 +159,44 @@ class GameController extends BaseController {
 	 * Displays the results of given game.
 	 */
 	public function showResult($game) {
-		return "Show Results!";
+		$questions = array();
+		$player1_has_played = $game->hasPlayerPlayed(1);
+		$player2_has_played = $game->hasPlayerPlayed(2);
+		$player1_rights = 0;
+		$player2_rights = 0;
+		foreach($game->gameQuestions as $gq) {
+			$question_text = $gq->question->qst_text;
+			$player1_answer = $gq->answer1;
+			$player2_answer = $gq->answer2;
+			$right_answer = $gq->question->qst_answer1;
+			$player1_color = 'wrong';
+			$player2_color = 'wrong';
+			if($player1_answer === $right_answer) {
+				$player1_color = 'right';
+				$player1_rights++;
+			}
+			if($player2_answer === $right_answer) {
+				$player2_color = 'right';
+				$player2_rights++;
+			}
+			$question = array(
+				'text' => $question_text,
+				'player1Answer' => $player1_answer,
+				'player2Answer' => $player2_answer,
+				'rightAnswer' => $right_answer,
+				'player1Color' => $player1_color,
+				'player2Color' => $player2_color,
+			);
+			array_push($questions, $question);
+		}
+		return View::make('result', array(
+			'player1' => $game->player1name, 
+			'player2' => $game->player2name, 
+			'player1HasPlayed' => $player1_has_played,
+			'player2HasPlayed' => $player2_has_played,
+			'player1Rights' => $player1_rights,
+			'player2Rights' => $player2_rights,
+			'questions' => $questions));;
 	}
 
 }

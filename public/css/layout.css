@@ -266,6 +266,14 @@ form div#buttons {
 	clear: both;
 }
 
+.right {
+	color: green;
+}
+
+.wrong {
+	color: red;
+}
+
 /* =======================================
 E N D E   D E S   S T Y L E S H E E T S
 ======================================= */
