@@ -53,7 +53,7 @@ App::error(function(Exception $exception, $code)
 
 App::missing(function($exception)
 {
-    return Response::make('so a schaas im Wald!!!', 404);
+    return Response::view('error');
 });
 
 /*

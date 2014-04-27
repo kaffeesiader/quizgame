@@ -208,6 +208,8 @@ form div#player2 {
 form div#player1 label,
 form div#player2 label {
 	display: block;
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
 
 form div#buttons {
