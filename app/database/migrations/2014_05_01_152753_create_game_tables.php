@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGame extends Migration {
+class CreateGameTables extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,21 +14,32 @@ class CreateGame extends Migration {
 	{
 		Schema::create('games', function($t) {
 			$t->string('id', 32)->primary();
-			$t->string('player1name', 50);
-			$t->string('player1email', 100);
-			$t->string('player2name', 50);
-			$t->string('player2email', 100);
+			$t->integer('player1_id')->unsigned();
+			$t->integer('player2_id')->unsigned();
+			$t->integer('score_player1')->default(0);
+			$t->integer('score_player2')->default(0);
+			$t->timestamp('finished_on')->nullable();
 			$t->timestamps();
+			
+			$t->foreign('player1_id')
+				->references('id')->on('users')
+				->onDelete('restrict');
+				
+			$t->foreign('player2_id')
+				->references('id')->on('users')
+				->onDelete('restrict');
 		} );
 		
 		Schema::create('game_questions', function($t) {
 			$t->increments('id');
 			$t->string('game_id', 32);
 			$t->integer('question_id')->unsigned();
-			$t->string('answer1')->nullable();
-			$t->string('answer2')->nullable(); 
+			$t->integer('player_index')->unsigned();
+			$t->string('answer')->nullable();
+			$t->timestamp('displayed_on')->nullable();
+			$t->timestamp('answered_on')->nullable();
 			
-			$t->unique(array('game_id', 'question_id'));
+			$t->unique(array('game_id', 'question_id', 'player_index'));
 			
 			$t->foreign('game_id')
 				->references('id')->on('games')
@@ -39,6 +50,7 @@ class CreateGame extends Migration {
 				->onDelete('restrict');
 			
 		});
+		
 	}
 
 	/**

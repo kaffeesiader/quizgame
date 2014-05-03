@@ -4,13 +4,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateQuestionsTable extends Migration {
-	
+
 	/**
 	 * Run the migrations.
 	 *
 	 * @return void
 	 */
-	public function up() {
+	public function up()
+	{
 		Schema::create ( 'questions', function ($t) {
 			$t->increments ( 'qst_id' );
 			$t->string ( 'qst_text' );

@@ -2,22 +2,18 @@
 
 @section('content')
 	<h1>Player: {{{ $player }}} </h1>
-	{{ Form::open(array('url' => Request::url())) }}
-
-		@foreach($questions as $qst)
-			<div class="question-item">
-				<p class="question-text">{{{ $qst['text'] }}}</p>
-				@foreach($qst['answers'] as $answer)
-					<li>
-						{{ Form::radio('answer'.$qst['id'], $answer) }}
-						{{ Form::label('', $answer) }}
-					</li>
-				@endforeach
-			</div>
-		@endforeach
+	{{ Form::open(array('url' => 'game/answer/'.$game_question_id, 'class' => 'question-form')) }}
+		<p class="question-text">{{{ $question }}}</p>
+		<div id="answers">
+			<ul>
+			@foreach($answers as $answer)
+				<li>{{ Form::submit($answer, array('name' => 'submit', 'class' => 'answer-button')) }}</li>
+			@endforeach
+			</ul>
+		</div>
     	
     	<div id="buttons">
-    		{{ Form::submit('Submit') }}
+    		
     	</div>
     	
 	{{ Form::close() }}

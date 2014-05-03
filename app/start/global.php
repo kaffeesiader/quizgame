@@ -84,3 +84,12 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+
+/*
+ * Register our MailService as a singleton instance in the IOC container
+ */
+App::bind('mail_service', function()
+{
+	return new MailService();
+});

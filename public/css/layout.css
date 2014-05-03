@@ -94,6 +94,28 @@ hr {
 	margin: 30px auto 10px auto;
 }
 
+#auth-data {
+	background-color: white;
+	text-align: right;
+	padding-bottom: 5px;
+}
+
+#auth-data p {
+	margin-bottom: 0;
+}
+
+#auth-data a:link,
+#auth-data a:visited,
+#auth-data a:hover,
+#auth-data a:focus,
+#auth-data a:active{
+	color: blue;
+}
+
+#auth-data a:hover {
+	text-decoration: underline;
+}
+
 #right {
 	float: left;
 	width: 130px;
@@ -188,33 +210,58 @@ hr {
 	padding: 5px 0;
 }
 
-form div#player1 {
-	
-}
-
-form div#player2 {
-	margin-left: 20px;
-}
-
-form div#player1,
-form div#player2 {
-	display: inline;
-	float: left;
-	border: solid 1px grey;
-	padding: 20px;
-	margin-bottom: 20px;
-}
-
-form div#player1 label,
-form div#player2 label {
+#new-game label {
 	display: block;
 	margin-bottom: 5px;
 	margin-top: 5px;
 }
 
-form div#buttons {
+#new-game textarea {
+	min-width: 360px;
+	min-height: 150px;
+}
+
+#buttons {
 	margin-top: 10px;
 }
+
+#answers li {
+	list-style-type: none;
+}
+
+#gameresult {
+	color: blue;
+	font-size: 1.5em;
+	font-weight: bold;
+	text-align: center;
+}
+
+#gameresult .player-score {
+	font-size: 3.0em;
+	padding: 0 10px;
+	color: green;
+}
+
+#revenche {
+	text-align: center;
+	margin: 20px;
+}
+
+#revenche a {
+	font-size: 1.5em;
+	font-weight: bold;
+	background: blue;
+	color: white;
+	padding: 10px 20px;
+}
+
+/* #answers li:nth-child(odd) {
+	float: left;
+} */
+
+/* #answers li:nth-child(even) {
+	display:none;
+} */
 
 /* =======================================
 4. Sonstige Styles
@@ -242,6 +289,11 @@ form div#buttons {
 .question-item label {
 	display: inline;
 	padding-bottom: 2px;
+}
+
+.game-stats {
+	text-align: center;
+	border: solid 1px grey;
 }
 
 .errors,.warnings {

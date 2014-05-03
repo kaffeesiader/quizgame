@@ -1,32 +1,47 @@
 @extends('layout')
 
 @section('content')
-	@if($player1HasPlayed && $player2HasPlayed)
-		<p class="gameresult">Score {{ $player1 }}: {{ $player1Rights }} / 5</p>
-		<p class="gameresult">Score {{ $player2 }}: {{ $player2Rights }} / 5</p>
-	@endif
-	@if($player1HasPlayed)
-		<h1>Results for {{{ $player1 }}}: </h1>
-		<ul>
-			@foreach($questions as $q)
-				<li>
-					<p>{{{ $q['text'] }}}</p>
-					<p class="{{ $q['player1Color'] }}">Your answer:  {{{ $q['player1Answer'] }}}</p>
-					<p>Right answer: {{{ $q['rightAnswer'] }}}</p>
-				</li>
+	
+	@if(!$isFinished)
+		<p>Still waiting for {{ $opponent }} to complete</p>
+		{{ link_to('/', 'Home') }}
+	@else
+		<div id="gameresult">
+			{{ $player1_name }} <span class="player-score">{{ $player1_score }}
+			:
+			{{ $player2_score }}</span> {{ $player2_name }}
+		</div>
+		<div id="revenche">
+			{{ link_to('/game/'.$game_id.'/revenche', 'Revenche') }}
+		</div>
+		<h3>Results for {{ $player1_name }}</h3>
+		<div class="game-stats">
+			@foreach($player1_results as $result)
+				<div>
+					<p class="question">{{ $result['question'] }}>
+					<p>
+						Correct answer: <span class="answer-correct">{{ $result['right_answer'] }}</span>&nbsp;
+						{{ $player1_name }}'s answer:
+						<span class="answer-{{ $result['result'] }}">
+							{{ $result['player_answer'] }}
+						</span>
+					</p>
+				</div>
 			@endforeach
-		</ul>
-	@endif
-	@if($player2HasPlayed)
-		<h1>Results for {{{ $player2 }}}: </h1>
-		<ul>
-			@foreach($questions as $q)
-				<li>
-					<p>{{{ $q['text'] }}}</p>
-					<p class="{{ $q['player2Color'] }}">Your answer:  {{{ $q['player2Answer'] }}}</p>
-					<p>Right answer: {{{ $q['rightAnswer'] }}}</p>
-				</li>
+		</div>
+		<h3>Results for {{ $player2_name }}</h3>
+		<div class="game-stats">
+			@foreach($player2_results as $result)
+				<div>
+					<p class="question">{{ $result['question'] }}</p>
+					<p>Correct answer: <span class="answer-correct">{{ $result['right_answer'] }}</span>&nbsp;
+						{{ $player1_name }}'s answer: 
+						<span class="answer-{{ $result['result'] }}">
+							{{ $result['player_answer'] }}
+						</span>
+					</p>
+				</div>
 			@endforeach
-		</ul>
+		</div>
 	@endif
 @stop

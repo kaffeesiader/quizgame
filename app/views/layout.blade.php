@@ -9,10 +9,17 @@
 
 	<body id="quizgame">
 		<div id="wrapper">
+			<div id="auth-data">
+				@if(Auth::check())
+					<p>{{ HTML::linkRoute('logout', 'Logout ('.Auth::user()->email.')') }}</p>
+				@endif
+			</div>
 			<nav id="right">
 				<li><a href="/index.php">Home</a></li>
 				<li><a href="/team.php">Team</a></li>
 				<li><a href="/projects.php">Projects</a></li>
+				<li><a href="/wiki/">Wiki</a></li>
+				<li><a href="/quizgame/">Quizgame</a></li>
 			</nav> <!-- end right -->
 			<div id="main">
 				<div id="layout-main">
@@ -21,7 +28,7 @@
 					</header>
 					<nav id="nav-top">
 						<ul>
-							<li><a href="/quizgame/game/new">Start new game</a></li>
+							<li>{{ HTML::linkRoute('game.new', 'Start new game') }}</li>
 						</ul>
 					</nav>
 					@unless ($errors->isEmpty())
