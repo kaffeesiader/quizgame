@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'noreply@138.232.66.105', 'name' => 'Quizgame'),
+	'from' => array('address' => 'martin.griesser@student.uibk.ac.at', 'name' => 'Quizgame'),
 
 	/*
 	|--------------------------------------------------------------------------
