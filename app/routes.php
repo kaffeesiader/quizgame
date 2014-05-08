@@ -15,6 +15,7 @@
  * Define route constraint patterns
  */
 Route::pattern('pid', '[1|2]');
+Route::pattern('number', '[0-9]+');
 
 /*
  * Define route filters
@@ -53,6 +54,8 @@ Route::post('game/answer/{game_question_id}', 'GameController@postHandleAnswer')
 Route::get('game/{game}/result', 'GameController@showResult');
 
 Route::get('game/{game}/revenche', 'GameController@handleRevenche');
+
+Route::get('game/highscore/{number}', 'GameController@getHighscore');
 
 Route::get('login', array('uses' => 'LoginController@showLogin'));
 // route to process the login form

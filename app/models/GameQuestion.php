@@ -8,7 +8,9 @@ class GameQuestion extends Eloquent {
 	public function getId() {
 		return $this->id;
 	}
-	
+	/**
+	 * @return Question
+	 */
 	public function getQuestion() {
 		return $this->question;
 	}

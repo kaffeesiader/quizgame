@@ -28,6 +28,7 @@
 					</header>
 					<nav id="nav-top">
 						<ul>
+							<li>{{ link_to('/', 'Home') }}</li>
 							<li>{{ HTML::linkRoute('game.new', 'Start new game') }}</li>
 						</ul>
 					</nav>

@@ -137,31 +137,44 @@ class GameController extends BaseController {
 	
 	/**
 	 * Populates and displays the game view for given player.
-	 * Checks first, if given player has already played and redirects 
+	 * Checks first, if given player has already played and redirects
 	 * to result page in that case.
-	 * 
+	 *
 	 * @param $player The player index (can be either 1 or 2)
 	 * @param $game	The game instance
 	 */
 	public function getHandlePlayer($player_index, $game) {
 		// redirect to result page if no question left for given player
-		$gq = $game->nextQuestionFor($player_index);
-
-		if($gq) {
+		$allQuestions = $game->questionsFor($player_index);
+	
+		if(!$allQuestions->isEmpty()) {
 			// populate and display our game view with the current question
-			$question = $gq->getQuestion()->getQuestionText();
-			$answers = $gq->getQuestion()->getAnswers();
-			// don't forget to shuffle the answers because the first answer
-			// is always the right one
-			shuffle($answers);
-			// set the current question as displayed
-			$gq->setDisplayed();
+			$questions = array();
+			$index = 0;
+			foreach ($allQuestions as $gq) {
+				$question = $gq->getQuestion()->getQuestionText();
+				$answers = $gq->getQuestion()->getAnswers();
+				// don't forget to shuffle the answers because the first answer
+				// is always the right one
+				shuffle($answers);
+				// set the current question as displayed
+				$gq->setDisplayed();
+				
+				array_push($questions, array(
+						'id' => $gq->getId(),
+						'index' => $index,
+						'text' => $question, 
+						'answers' => $answers));
+				
+				$index++;
+				
+			}	
+			
 			// assign all parameters to our view and display it
 			return View::make('game', array(
-					'game_question_id' => $gq->getId(),
+					'game_id' => $game->getId(),
 					'player' => Auth::user()->getName(),
-					'question' => $question,
-					'answers' => $answers
+					'questions' => $questions
 			));
 		} else {
 			return Redirect::to('game/'.$game->getId().'/result');
@@ -174,9 +187,30 @@ class GameController extends BaseController {
 	public function postHandleAnswer($game_question) {
 		$answer = Input::get('submit');
 		$game_question->setAnswer($answer);
-		$url = 'game/player'.$game_question->getPlayerIndex().'/'.$game_question->getGame()->getId();
+		$result = $game_question->answeredCorrect();
 		
-		return Redirect::to($url);
+		return json_encode(array(
+				'wascorrect' => $result)
+		);
+	}
+	
+	public function getHighscore($count) {
+		$best = User::where('score', '>', 0)->orderBy('score', 'desc')->take($count)->get();
+		
+		$result = array();
+		foreach ($best as $user) {
+			$entry = array(
+					'name' => $user->getName(),
+					'score' => $user->getScore(),
+					'games_won' => $user->getGamesWon(),
+					'games_lost' => $user->getGamesLost(),
+					'games_undecided' => $user->getGamesUndecided(),
+					'games_played' => $user->getGamesPlayed()
+			);
+			array_push($result, $entry);
+		}
+		
+		return json_encode($result);
 	}
 	
 	/**
@@ -214,12 +248,13 @@ class GameController extends BaseController {
 	
 	public function handleRevenche($game) {
 		$player1 = Auth::user();
+		$name = $player1->getName();
 		$player2 = $game->getOpponent($player1);
 		
 		$new_game = $this->startGame($player1, $player2);
 		$email = $player2->getEmail();
 		$id = $new_game->getId();
-		$message_text = "I want a revenche!";
+		$message_text = "$name want's a revenche!";
 		// send an email invitation to player 2
 		App::make('mail_service')->sendInvitation($email, $id, $message_text);
 		

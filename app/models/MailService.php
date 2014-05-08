@@ -11,7 +11,7 @@ class MailService {
 				'message_text' => $message_text
 		);
 		
-		Mail::send('emails.invitation', $data, function ($message) use($email) {
+		Mail::queue('emails.invitation', $data, function ($message) use($email) {
 			//$message->from('quizgame@email.com', 'Quiz Game');
 			$message->to($email)->subject('Invitation');
 		} );
@@ -23,10 +23,10 @@ class MailService {
 		);
 		$email_pl1 = $game->getPlayer1()->getEmail();
 		$email_pl2 = $game->getPlayer2()->getEmail();
-		Mail::send('emails.notification', $data, function($message) use($email_pl1) {
+		Mail::queue('emails.notification', $data, function($message) use($email_pl1) {
 			$message->to($email_pl1)->subject('NoSPAM Quiz Game result notification');
 		} );
-		Mail::send('emails.notification', $data, function($message) use($email_pl2) {
+		Mail::queue('emails.notification', $data, function($message) use($email_pl2) {
 			$message->to($email_pl2)->subject('NoSPAM Quiz Game result notification');
 		} );
 	}

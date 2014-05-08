@@ -255,13 +255,41 @@ hr {
 	padding: 10px 20px;
 }
 
-/* #answers li:nth-child(odd) {
-	float: left;
-} */
+#highscore {
+	display: none;
+	margin-top: 20px;
+}
 
-/* #answers li:nth-child(even) {
-	display:none;
-} */
+#highscore-table {
+	width: 80%;
+	margin: 0 auto;
+	border: solid 1px grey;
+	font-size: 1.1em;
+}
+
+#highscore-table caption {
+	font-size: 1.2em;
+	border: solid 1px grey;
+	border-bottom: none;
+	background: lightgrey;
+	padding: 5px;
+}
+
+#highscore-table th,
+#highscore-table td {
+	border: solid 1px grey;
+	padding: 2px 5px;
+	text-align: center;
+}
+
+#highscore-table th:first-of-type,
+#highscore-table td:first-of-type {
+	text-align: left;
+}
+
+#highscore-table tbody tr:nth-child(odd) {
+	background: lightgrey;
+}
 
 /* =======================================
 4. Sonstige Styles
@@ -273,22 +301,48 @@ hr {
 }
 
 .question-item {
+	display: none;
 	border: solid 1px #c0c0c0;
 	margin-bottom: 5px;
 	padding: 10px;
+	text-align: center;
 }
 
 .question-text {
-	font-size: 1.1em;
+	font-size: 1.3em;
 	font-style: italic;
 }
 
-.question-item li {
-	list-style: none;
+.question-answers {
+	margin-bottom: 5px;
 }
-.question-item label {
+
+.question-answers li {
+	list-style: none;
 	display: inline;
-	padding-bottom: 2px;
+}
+
+.question-answers a {
+	display: inline-block;
+	width: 150px;
+	padding: 20px 10px;
+	border: solid 1px grey;
+}
+
+.answer {
+	
+}
+
+a.answer-correct {
+	background-color: green;
+	color: white;
+	font-weight: bold;
+}
+
+a.answer-wrong {
+	background-color: red;
+	color: white;
+	font-weight: bold;
 }
 
 .game-stats {

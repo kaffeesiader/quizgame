@@ -45,6 +45,20 @@
 		
 		return $gq;
 	}
+	/**
+	 * Get all undisplayed questions for player with given index
+	 * 
+	 * @param $player_index
+	 * @return An array of GameQuestion instances. Array can be empty.
+	 */
+	public function questionsFor($player_index) {
+		$gq = $this->questions()
+			->where('player_index', '=', $player_index)
+			->whereNull('answered_on')
+			->get();
+		
+		return $gq;
+	}
 	
 	public function isFinished() {
 		return !empty($this->finished_on);
@@ -79,17 +93,32 @@
 	public function updateStatistics($game_question) {
 		// do nothing if this game was already marked as finished
 		if(!$this->isFinished()) {
+			// provide some log output for debugging
+			Log::info("Updating game statistics");
+			$right_answer = $game_question->getQuestion()->getCorrectAnswer();
+			$answer = $game_question->getAnswer();
+			Log::info("Correct answer: $right_answer, Answer was: $answer");
+			
 			// check if given question was answered correct and update score if necessary
 			if($game_question->answeredCorrect()) {
 				$score_field = 'score_player'.$game_question->getPlayerIndex();
-				$this->$score_field += 1;
+				$current_score = $this->$score_field;
+				$new_score = $current_score + 1;
+				$this->$score_field = $new_score;
+				Log::info("Score of player".$game_question->getPlayerIndex()." was raised from $current_score to $new_score");
 			}
 			// check if all questions were handled and update overall scores
+			Log::info("All questions handled: ".($this->allQuestionsHandled() ? "true" : "false"));
 			if($this->allQuestionsHandled()) {
 				// mark game as finished.
 				$this->finished_on = date('Y-m-d H:i:s');
+				$id = $this->getId();
+				$finished_on = $this->finished_on;
+				
+ 				Log::info("Game $id finished at $finished_on");
 				// look if we have a winner (one player has larger score as the second one...)
 				$winner = $this->getWinner();
+				
 				if($winner) {
 					// increase the score of our winner
 					$winner->addGameResult(Game::WON);
@@ -103,10 +132,10 @@
 				// send email to the two participating players
 				// to notify about the end of the game.
 				App::make('mail_service')->sendResultNotification($this);
-			}		
+			}
+			// save our modifications.
+			$this->save();
 		}
-		// save our modifications.
-		$this->save();
 	}
 	
 	public function getOpponent($player) {
@@ -172,9 +201,6 @@
 		return $results;
 	}
 	
-	public function getPlayer2Stats() {
-		
-	}
 	// ---------------- Private and protected members ------------------------- //
 	
 	/**
@@ -183,10 +209,7 @@
 	 * @return boolean
 	 */
 	private function allQuestionsHandled() {
-		return $this->questions()
-			->whereNull('displayed_on')
-			->whereNull('answered_on')
-			->count() == 0;
+		return  !($this->questions()->whereNull('answered_on')->count() > 0);
 	}
 	
 	protected function player1() {
