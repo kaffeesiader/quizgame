@@ -1,0 +1,418 @@
+/* =========================================================
+Aufbau:
+1. Kalibrierung und Restauration
+2. Allgemeine Styles
+3. Styles für Layoutbereiche
+4. Sonstige Styles
+========================================================== */
+
+/* =======================================
+1. Kalibrierung und Restauration
+======================================= */
+* {
+	padding: 0;
+	margin: 0;
+}
+
+/* =======================================
+2. Allgemeine Styles
+======================================= */
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	/* background-color: lightcyan */
+}
+
+html { /* erzwingt Scrollbar im Firefox */
+	height: 101%;
+}
+
+img#logo {
+	background-color: white;
+	color: black;
+}
+
+h1 {
+	font-size: 150%;
+}
+
+h2 {
+	font-size: 130%;
+}
+
+address {
+	text-align: center; /* zentrieren */
+	font-size: 1.1em;
+	font-style: italic; /* normale Schrift, nicht kursiv */
+	line-height: 1.5; /* Zeilenabstand, ohne Einheit */
+	color: gray;
+}
+
+a {
+	text-decoration: none;
+} /* Unterstreichung entfernen */
+a:link {
+	color: #444;
+} /* Reihenfolge der Pseudoklassen ist wichtig! */
+a:visited {
+	color: #444;
+}
+
+a:hover,a:focus {
+	color: #d90000;
+}
+
+a:active {
+	color: white;
+	/* background-color: #d90000; */
+}
+/* Abstand nach unten */
+h2,p,ol {
+	margin-bottom: 1em;
+}
+
+/* Verschachtelte Listen ohne Abstand */
+ul ul {
+	margin-bottom: 0;
+}
+
+/* Abstand von links */
+li {
+	margin-left: 1em;
+}
+hr {
+	margin: 5px 0;
+}
+
+/* =======================================
+3. Styles für die Layoutbereiche
+======================================= */
+#wrapper {
+	color: black;
+	background-color: #EEEEEE;
+	width: 988px;
+	margin: 30px auto 10px auto;
+}
+
+#auth-data {
+	background-color: white;
+	text-align: right;
+	padding-bottom: 5px;
+}
+
+#logout {
+	display: none;
+}
+
+#auth-data p {
+	margin-bottom: 0;
+}
+
+#auth-data a:link,
+#auth-data a:visited,
+#auth-data a:hover,
+#auth-data a:focus,
+#auth-data a:active{
+	color: blue;
+}
+
+#auth-data a:hover {
+	text-decoration: underline;
+}
+
+#right {
+	float: left;
+	width: 130px;
+}
+
+#right ul {
+	margin-bottom: 0;
+	padding: 5px 0;
+}
+
+#right li {
+	text-align: center;
+	list-style: none;
+	margin: 0;
+}
+
+#right a {
+	background: darkgrey;
+	display: block;
+	font-weight: bold;
+	font-size: 1.3em;
+	font-variant: small-caps;
+	padding: 10px 5px;
+	border-bottom: solid 2px lightgrey;
+}
+
+#right a:hover,#right a:focus {
+	background-color: lightgrey;
+}
+
+#right a:active {
+	background-color: lightgrey;
+}
+
+#main {
+	position: relative;
+	background: white;
+	margin-left: 130px;
+}
+
+#layout-main {
+	border: solid 1px grey;
+	margin-left: 20px;
+}
+
+#header {
+	background-color: gray;
+	text-align: center;
+	padding: 10px 0;
+}
+
+#header h1 {
+	color: white;
+	font-size: 5.0em;
+	font-weight: bold;
+	font-variant: small-caps;
+}
+
+#nav-top {
+	background: #EEEEEE;
+}
+
+#nav-top ul {
+	padding: 5px 0;
+	margin-bottom: 0;
+}
+
+#nav-top li {
+	display: inline;
+	list-style: none;
+	margin: 0;
+}
+
+#nav-top a {
+	padding: 5px 10px;
+	font-size: 1.1em;
+}
+
+#content {
+	padding: 10px;
+	min-height: 400px;
+}
+
+#content h1 {
+	border-bottom: solid 1px lightgrey;
+	margin-bottom: 10px;
+}
+
+#footer {
+	background: #EEEEEE;
+	border-top: solid 1px grey;
+	padding: 5px 0;
+}
+
+#new-game label {
+	display: block;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#new-game textarea {
+	min-width: 360px;
+	min-height: 150px;
+}
+
+#buttons {
+	margin-top: 10px;
+}
+
+#login_btn {
+	margin-top: 10px;
+}
+
+#start_game_btn {
+	margin-top: 10px;
+}
+
+#new_game_email {
+
+}
+
+#new_game_messagetext {
+
+}
+
+#answers li {
+	list-style-type: none;
+}
+
+#gameresult {
+	color: blue;
+	font-size: 1.5em;
+	font-weight: bold;
+	text-align: center;
+}
+
+#gameresult .player-score {
+	font-size: 3.0em;
+	padding: 0 10px;
+	color: green;
+}
+
+#revenche {
+	text-align: center;
+	margin: 20px;
+}
+
+#revenche a {
+	font-size: 1.5em;
+	font-weight: bold;
+	background: blue;
+	color: white;
+	padding: 10px 20px;
+}
+
+#highscore {
+	display: none;
+	margin-top: 20px;
+}
+
+#highscore-table {
+	width: 80%;
+	margin: 0 auto;
+	border: solid 1px grey;
+	font-size: 1.1em;
+}
+
+#highscore-table caption {
+	font-size: 1.2em;
+	border: solid 1px grey;
+	border-bottom: none;
+	background: lightgrey;
+	padding: 5px;
+}
+
+#highscore-table th,
+#highscore-table td {
+	border: solid 1px grey;
+	padding: 2px 5px;
+	text-align: center;
+}
+
+#highscore-table th:first-of-type,
+#highscore-table td:first-of-type {
+	text-align: left;
+}
+
+#highscore-table tbody tr:nth-child(odd) {
+	background: lightgrey;
+}
+
+#player-statistics {
+	margin-top: 10px;
+	padding-left: 20px;
+}
+
+#player-statistics span {
+	font-weight: bold;
+}
+
+/* =======================================
+4. Sonstige Styles
+======================================= */
+.float-left {
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.question-item {
+	/* display: none; */
+	border: solid 1px #c0c0c0;
+	margin-bottom: 5px;
+	padding: 10px;
+	text-align: center;
+}
+
+.unanswered {
+	display: none;
+}
+
+.question-text {
+	font-size: 1.3em;
+	font-style: italic;
+}
+
+.question-answers {
+	margin-bottom: 5px;
+}
+
+.question-answers li {
+	list-style: none;
+	display: inline;
+}
+
+.question-answers a {
+	display: inline-block;
+	width: 150px;
+	padding: 20px 10px;
+	border: solid 1px grey;
+}
+
+.answer {
+	
+}
+
+a.answer-correct {
+	background-color: green;
+	color: white;
+	font-weight: bold;
+}
+
+a.answer-wrong {
+	background-color: red;
+	color: white;
+	font-weight: bold;
+}
+
+.game-stats {
+	text-align: center;
+	border: solid 1px grey;
+}
+
+.errors,.warnings {
+	background: #FFE;
+	color: #F00;
+	margin: 10px;
+	padding: 20px;
+	border: 1px solid #F00;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.notice,.message {
+	background: #EEE;
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid #00F;
+	font-size: 1.1em;
+}
+
+.clear {
+	clear: both;
+}
+
+.right {
+	color: green;
+}
+
+.wrong {
+	color: red;
+}
+
+/* =======================================
+E N D E   D E S   S T Y L E S H E E T S
+======================================= */
