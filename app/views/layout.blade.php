@@ -4,6 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>POWIS - Quizgame</title>
+		<base href="{{ 'http://'.$_SERVER['HTTP_HOST'].'/quiz/' }}">
 		{{ HTML::style('css/layout.css') }}
 		{{ HTML::script('js/libs/jquery/jquery.js') }}
 		{{ HTML::script('js/libs/jquery/jquery-cookie.js') }}
@@ -24,6 +25,7 @@
 				<li><a href="/projects.php">Projects</a></li>
 				<li><a href="/wiki/">Wiki</a></li>
 				<li><a href="/quizgame/">Quizgame</a></li>
+				<li><a href="/quiz/">Quizgame SP</a></li>
 			</nav> <!-- end right -->
 			<div id="main">
 				<div id="layout-main">

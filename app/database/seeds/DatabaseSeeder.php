@@ -1,4 +1,29 @@
 <?php
+/**
+ * Only used for database seeding...
+ */
+class Question extends Eloquent {
+
+	protected $primaryKey = 'pst_id';
+
+	public function getQuestionText() {
+		return $this->qst_text;
+	}
+
+	public function getAnswers() {
+		return array (
+				$this->qst_answer1,
+				$this->qst_answer2,
+				$this->qst_answer3,
+				$this->qst_answer4
+		);
+	}
+
+	public function getCorrectAnswer() {
+		return $this->qst_answer1;
+	}
+
+}
 
 class DatabaseSeeder extends Seeder {
 
@@ -12,17 +37,6 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$this->call('QuestionTableSeeder');
-	}
-
-}
-
-class UserTableSeeder extends Seeder {
-
-	public function run()
-	{
-// 		DB::table('users')->delete();
-
-// 		User::create(array('email' => 'foo@bar.com'));
 	}
 
 }

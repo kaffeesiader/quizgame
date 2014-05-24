@@ -57,7 +57,8 @@ class GameController extends BaseController {
 	}
 	
 	/**
-	 * @param $player The player index (can be either 1 or 2)
+	 * Return the game with given id
+	 * 
 	 * @param $game_id	The id of the game
 	 */
 	public function getGame($game_id) {
@@ -72,6 +73,8 @@ class GameController extends BaseController {
 	}
 	
 	/**
+	 * Handle the move of player with given index on game with given id
+	 * 
 	 * @param string game_id
 	 */
 	public function postGame($player_index, $game_id) {
@@ -84,7 +87,11 @@ class GameController extends BaseController {
 			Log::error("Input has to be in json format!");
 		}
 	}
-	
+	/**
+	 * Get the results of the game with given ID
+	 * @param string $game_id
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+	 */
 	public function getResults($game_id) {
 		$results = Game::get($game_id);
 		if(!empty($results)) {
@@ -94,7 +101,12 @@ class GameController extends BaseController {
 			return Response::make("No game with given ID exists", 404);
 		}
 	}
-	
+	/**
+	 * Handles a revenche request of game with given id
+	 * Creates a new game and sends the notification emails
+	 * 
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+	 */
 	public function handleRevenche($game_id) {
 		$game = Game::get($game_id);
 		if(!empty($game)) {
@@ -121,6 +133,18 @@ class GameController extends BaseController {
 			Log::error("GameController: Unable to handle revenche!");
 			return Response::make("No game with given ID exists", 404);
 		}
+	}
+	/**
+	 * Returns an array of players with the top scores
+	 * GET parameter 'count' specifies, how many entries to receive
+	 * Default is set to 5
+	 * 
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function getHighscores() {
+		$count = Input::get('count', 5);
+		$scores = Game::getHighscores($count);
+		return Response::json($scores);
 	}
 
 	// ------------------------------- Private members --------------------------------------------//

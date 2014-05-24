@@ -1,4 +1,6 @@
 /**
+ * Really ugly solution!!!
+ * We should definitely switch to require.js....
  * 
  */
 
@@ -19,6 +21,7 @@ $().ready(function() {
 //				console.log(error);
 //			}
 //		},
+		// set the base url for all our ajax calls
 		contentType: "application/json; charset=utf-8"
 	});
 
@@ -38,7 +41,7 @@ $().ready(function() {
 			$('#pending-games').hide();
 			$('#highscore').hide();
 			// load player statistics
-			$.get("/quiz/user/statistics", function(stats) {
+			$.get("user/statistics", function(stats) {
 				
 				var template = $('#playerStatsTemplate').html();
 				var html = _.template(template, { stats: stats });
@@ -49,7 +52,7 @@ $().ready(function() {
 			}, 'json');
 			
 			// load list of open games
-			$.get("/quiz/user/opengames", function(games) {
+			$.get("user/opengames", function(games) {
 				if(games.length > 0) {
 					// remove all existing entries from list
 					$('#games-list li').remove();
@@ -72,7 +75,7 @@ $().ready(function() {
 			}, 'json');
 			
 			// load highscores
-			$.get("/quiz/game/highscore?count=5", function(scores) {
+			$.get("game/highscore?count=5", function(scores) {
 				if(scores.length > 0) {
 					// first remove all existing rows from table
 					$('#highscore-table tbody tr').remove();
@@ -172,7 +175,7 @@ $().ready(function() {
 		
 		use: function(game_id, player_id) {
 			var that = this;
-			var target = "/quiz/game/" + game_id;
+			var target = "game/" + game_id;
 			
 			$.get(target, function(game) {
 				that.game = game;
@@ -232,14 +235,14 @@ $().ready(function() {
 	    	// check if all questions are answered
 	    	if(this.current_question_index >= this.game.questions.length) {
 	    		this.player.played = true;
-	    		var target = '/quiz/game/player/' + this.player_index + '/' + this.game.id;
+	    		var target = 'game/player/' + this.player_index + '/' + this.game.id;
 	    		var that = this;
 		    	$.post(target, 
 		    			JSON.stringify({ "answers": this.player.answers, "score": this.player.score, }),
 		    			function(response) {
 		    				console.log("Game updated!");
-		    				// wait a second and move to result page
-		    				window.setTimeout(function() { that.render(); }, 1000);
+		    				// re-render view to trigger move to result page
+		    				that.render();
 		    			}
 		    	);
 		    	this.player.played = true;
@@ -260,7 +263,7 @@ $().ready(function() {
 		
 		use: function(game_id, player_id) {
 			var that = this;
-			var target = "/quiz/game/" + game_id + "/result";
+			var target = "game/" + game_id + "/result";
 			
 			$.get(target, function(game) {
 				that.game = game;
@@ -283,7 +286,7 @@ $().ready(function() {
 			e.preventDefault();
 			console.log("Revenche clicked!");
 			var game_id = this.game.id;
-			var target = "/quiz/game/" + game_id + "/revenche";
+			var target = "game/" + game_id + "/revenche";
 			$.get(target, function(result) {
 				var id = result.game_id;
 				console.log("Revenche game started with id " + id);

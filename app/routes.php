@@ -38,18 +38,18 @@ Route::get('/', function() {
 	// return our empty template view
 	return View::make('layout');
 });
-
+// handles game start requests
 Route::post('game/new', array('as' => 'game.start', 'uses' => 'GameController@postNewGame'));
-
+// gets the game with given id
 Route::get('game/{game_id}', 'GameController@getGame');
-
+// post the game progress of player with given index
 Route::post('game/player/{player_id}/{game_id}', 'GameController@postGame');
-
+// get the results of game with given id (simply returns the whole game object)
 Route::get('game/{game_id}/result', 'GameController@getResults');
-
+// starts a revenche of the game with given id
 Route::get('game/{game_id}/revenche', 'GameController@handleRevenche');
-
-// Route::get('game/highscore', 'GameController@getHighscore');
+// retrieves the highscore list (parameter 'count' specifies how many entries - default is 5)
+Route::get('player/highscores', 'GameController@getHighscores');
 
 // Route::get('user/statistics', 'GameController@getUserStats');
 

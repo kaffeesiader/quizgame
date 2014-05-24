@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 /*
- * Represent a Quizgame between two players
+ * Handles all the game specific requests
  */
  class Game {
  	
@@ -11,11 +11,19 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  	const UNDECIDED = 1;
  	
  	private function __construct() {}
- 	
+ 	/**
+ 	 * Start a new game for given set of players.
+ 	 * $players is expected to be an array, each entry containing the data of one player (name, email)
+ 	 * Can be useful, if we plan to extend the game to more than two players
+ 	 * 
+ 	 * @param array $players
+ 	 * @param int $n_qst specifies, how many questions the game should contain
+ 	 * 
+ 	 * @return string
+ 	 */
  	public static function start($players, $n_qst) {
  		// create a unique id for our new game
  		$game_id = md5(uniqid());
- 		$questions = GameDB::getInstance()->getRandomQuestions($n_qst);
  		$game = array();
  		$game['id'] = $game_id;
  		
@@ -33,7 +41,9 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  			$game[$player_key] = $player;
  			$index++;
  		}
+ 		// add random questions to our game
  		
+ 		$questions = GameDB::getInstance()->getRandomQuestions($n_qst);
  		$game['questions'] = array();
  		
  		$question_index = 0;
@@ -42,11 +52,13 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  			$game_question = array(
  					'question_index' => $question_index,
  					'text' => $qst['text'],
+ 					// also keep the correct answer before shuffling
  					'correct_answer' => $qst['answers'][0],
  					'answers' => $qst['answers']
  			);
+ 			// shuffle the answers
  			shuffle($game_question['answers']);
- 			
+ 			// add the question entry to our game
  			array_push($game['questions'], $game_question);
  			$question_index++;
  		}
@@ -58,8 +70,9 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  	}
  	
  	/**
+ 	 * Self explaining
+ 	 * 
  	 * @param string $game_id
- 	 * @param int $player_index
  	 * 
  	 * @return Game
  	 */
@@ -77,7 +90,19 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  		
  		return $game_data;
  	}
- 	
+ 	/**
+ 	 * Handle the move of player with given index on game with given id.
+ 	 * Stores the answers of the player, updates the score and marks the 
+ 	 * player as already played.
+ 	 * If both player have played, the game is marked as finished and the 
+ 	 * player scores are updated
+ 	 * 
+ 	 * @param string $game_id
+ 	 * @param int $player_index
+ 	 * @param array $data contains two entries: 
+ 	 * 		'answers' 	array, containing the chosen answers
+ 	 * 		'score'		the amount of correct answers
+ 	 */
  	public static function update($game_id, $player_index, $data) {
  		Log::info("Update request for game id ".$game_id);
  		$player = 'player'.$player_index;
@@ -91,7 +116,7 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  				$player.'.score' => $score,
  				$player.'.played' => true
  		);
- 		
+ 		// update the game object
  		Log::info(GameDB::games()->update($criteria, array('$set' => $set)));
  		Log::info("Game with id '$game_id' updated!");
  		// check if game is already finished and update player stats if necessary
@@ -106,7 +131,31 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  		}
  		
  	}
- 	
+ 	/**
+ 	 * Retrieve the current highscore table
+ 	 * 
+ 	 * @param int $count
+ 	 * @return multitype:
+ 	 */
+ 	public static function getHighscores($count) {
+ 		
+ 		$cursor = GameDB::players()
+ 			->find()
+ 			->sort(array('score' => -1))
+ 			->limit($count);
+ 		
+ 		$scores = array();
+ 		foreach ($cursor as $player_score) {
+ 			array_push($scores, $player_score);
+ 		}
+ 		
+ 		return $scores;
+ 	}
+ 	/**
+ 	 * Helper function to evaluate the game result after game has finished.
+ 	 * 
+ 	 * @param array $game
+ 	 */
  	private static function updateStatistics($game) {
  		
  		$player1 = $game['player1'];
@@ -123,7 +172,12 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  			Game::updatePlayerStats($player2, Game::UNDECIDED);
  		}
  	}
- 	
+ 	/**
+ 	 * Helper function to update the statistics of given player, based on given result
+ 	 * 
+ 	 * @param array $player
+ 	 * @param int $result
+ 	 */
  	private static function updatePlayerStats($player, $result) {
  		$inc = array();
  		$inc['games_played'] = 1;
@@ -155,8 +209,10 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
  				'$set' => array('name' => $name),
  				'$inc' => $inc
  		);
+ 		// option 'upsert' means, that a new record will be created, if player with given email
+ 		// does not exist
  		$options = array('upsert' => true);
- 		
+ 		// update the player data in database
  		Log::info(GameDB::players()->update($criteria, $update, $options));
  		Log::info("Statistics of player '$email' updated!");
  	}
