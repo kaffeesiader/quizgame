@@ -1,0 +1,19 @@
+<h1>Start a new game</h1>
+<div class="errors"></div>
+<p>Please enter name and email for second player. You can also provide a message text. This text will be added to the invitation email.</p>
+<div id="new-game">
+	<label for="email1">E-Mail Player 1</label>
+	<input type="email" name="email1" placeholder="example@email.com" id="new_game_email1" value="<%= email1 %>"/>
+	<label for="name1">Name Player 1</label>
+	<input type="text" name="name1" placeholder="player 1" id="new_game_name1" value="<%= name1 %>"/>
+	<label for="email2">E-Mail Player 2</label>
+	<input type="email" name="email2" placeholder="example@email.com" id="new_game_email2"  value="<%= email2 %>"/>
+	<label for="name2">Name Player 2</label>
+	<input type="text" name="name2" placeholder="player 2" id="new_game_name2" value="<%= name2 %>" />
+	<label for="messagetext">Invitation message</label>
+	<textarea name="messagetext" placeholder="Type an invitation message for player2" id="new_game_messagetext"></textarea>
+    	
+	<div id="start_game_btn" class="clear">
+		<button name="submit" value="submit" id="submit">Start game</button>
+	</div>
+</div>

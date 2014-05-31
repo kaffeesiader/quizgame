@@ -1,0 +1,42 @@
+<% if(!(player1.played && player2.played)) { %>
+	<p>Still waiting for second player to complete</p>
+<% } else { %>
+	<div id="gameresult">
+		<%= player1.player_name %> <span class="player-score"><%= player1.score %>
+		:
+		<%= player2.score %></span> <%= player2.player_name %>
+	</div>
+	<div id="revenche">
+		<a>Revenche</a>
+	</div>
+	<h3>Results for <%= player1.player_name %></h3>
+	<div class="game-stats">
+		<% _.each(questions, function(question, i) { %>
+			<div>
+				<p class="question"><%= question.text %>>
+				<p>
+					Correct answer: <span class="answer-correct"><%= question.correct_answer %></span>&nbsp;
+					<%= player1.player_name %>'s answer:
+					<span class="">
+						<%= player1.answers[i] %>
+					</span>
+				</p>
+			</div>
+		<% }); %>
+	</div>
+	<h3>Results for <%= player2.player_name %></h3>
+	<div class="game-stats">
+		<% _.each(questions, function(question, i) { %>
+			<div>
+				<p class="question"><%= question.text %>>
+				<p>
+					Correct answer: <span class="answer-correct"><%= question.correct_answer %></span>&nbsp;
+					<%= player2.player_name %>'s answer:
+					<span class="">
+						<%= player2.answers[i] %>
+					</span>
+				</p>
+			</div>
+		<% }); %>
+	</div>
+<% }; %>

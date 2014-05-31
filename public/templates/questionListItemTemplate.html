@@ -1,0 +1,10 @@
+<% _.each(questions, function(question, i) { %>
+	<div class="question-item unanswered">
+		<p class="question-text"><%= question.text %></p>
+		<ul class="question-answers">
+		<% _.each(question.answers, function(answer, j){ %>
+			<li><a><%= answer %></a>
+		<% }); %>
+		</ul>
+	</div>
+<% }); %>
