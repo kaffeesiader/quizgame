@@ -89,9 +89,8 @@ hr {
 ======================================= */
 #wrapper {
 	color: black;
-	background-color: #EEEEEE;
-	width: 988px;
 	margin: 30px auto 10px auto;
+	width: 860px;
 }
 
 #auth-data {
@@ -120,44 +119,9 @@ hr {
 	text-decoration: underline;
 }
 
-#right {
-	float: left;
-	width: 130px;
-}
-
-#right ul {
-	margin-bottom: 0;
-	padding: 5px 0;
-}
-
-#right li {
-	text-align: center;
-	list-style: none;
-	margin: 0;
-}
-
-#right a {
-	background: darkgrey;
-	display: block;
-	font-weight: bold;
-	font-size: 1.3em;
-	font-variant: small-caps;
-	padding: 10px 5px;
-	border-bottom: solid 2px lightgrey;
-}
-
-#right a:hover,#right a:focus {
-	background-color: lightgrey;
-}
-
-#right a:active {
-	background-color: lightgrey;
-}
-
 #main {
 	position: relative;
 	background: white;
-	margin-left: 130px;
 }
 
 #layout-main {

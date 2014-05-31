@@ -14,14 +14,7 @@
 			<div id="auth-data">
 				<a id="logout" href="/quiz/#/logout"></a>
 			</div>
-			<nav id="right">
-				<li><a href="/index.php">Home</a></li>
-				<li><a href="/team.php">Team</a></li>
-				<li><a href="/projects.php">Projects</a></li>
-				<li><a href="/wiki/">Wiki</a></li>
-				<li><a href="/quizgame/">Quizgame</a></li>
-				<li><a href="/quiz/">Quizgame SP</a></li>
-			</nav> <!-- end right -->
+		
 			<div id="main">
 				<div id="layout-main">
 					<header id="header">
